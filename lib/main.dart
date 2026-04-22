@@ -2,7 +2,6 @@ import 'package:chat_app/constants.dart';
 import 'package:chat_app/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'background_decoration.dart';
-import 'image_card.dart';
 
 void main() {
   runApp(const MyApp());
