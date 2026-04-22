@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'constants.dart';
 
 class CustomButton extends StatelessWidget {
+ final String title;
   const CustomButton({
-    super.key,
+    super.key, required this.title,
   });
 
   @override
@@ -14,7 +15,7 @@ class CustomButton extends StatelessWidget {
       decoration: BoxDecoration(
 
           borderRadius: BorderRadius.circular(60),
-          gradient: kLightGradient),
+          gradient:title == "Sign Up" ? kLightGradient : kDarkGradient),
       child: MaterialButton(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(60),
@@ -23,7 +24,7 @@ class CustomButton extends StatelessWidget {
         onPressed: () {},
         child:
         Text(
-          "Log In",
+          title,
           style: TextStyle(fontSize: 28.0, color: Colors.white),
         ),
       ),
