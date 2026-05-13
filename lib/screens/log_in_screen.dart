@@ -6,9 +6,7 @@ import '../components/custom_button.dart';
 import '../components/custom_text_form_field.dart';
 
 class LogInScreen extends StatelessWidget {
-  const LogInScreen({
-    super.key,
-  });
+  const LogInScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +19,7 @@ class LogInScreen extends StatelessWidget {
               children: [
                 Hero(
                   tag: 'logo',
-                  child: Image.asset("assets/images/logo.png",
-                    height: 75,
-                  ),
+                  child: Image.asset("assets/images/logo.png", height: 75),
                 ),
                 Text(
                   "Log In",
@@ -34,24 +30,32 @@ class LogInScreen extends StatelessWidget {
             SizedBox(height: 16),
             CustomTextFormField(title: "Email"),
             SizedBox(height: 8),
-            CustomTextFormField(title: "Password"),
+            CustomTextFormField(title: "Password", isPassword: true),
             Align(
               alignment: Alignment.centerRight,
 
-              child: TextButton(onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPasswordScreen(),));
-                
-              }, child: Text("Forget Password?",
-              style: TextStyle(color: kDarkColor2),
-              )),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ForgetPasswordScreen(),
+                    ),
+                  );
+                },
+                child: Text(
+                  "Forget Password?",
+                  style: TextStyle(color: kDarkColor2),
+                ),
+              ),
             ),
             Hero(
-                tag: 'logIn',child: CustomButton(title: "Log In",)),
-        
+              tag: 'logIn',
+              child: CustomButton(title: "Log In"),
+            ),
           ],
         ),
       ),
     );
   }
 }
-

@@ -5,9 +5,7 @@ import '../components/custom_button.dart';
 import '../components/custom_text_form_field.dart';
 
 class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({
-    super.key,
-  });
+  const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +18,7 @@ class SignUpScreen extends StatelessWidget {
               children: [
                 Hero(
                   tag: 'logo',
-                  child: Image.asset("assets/images/logo.png",
-                    height: 75,
-                  ),
+                  child: Image.asset("assets/images/logo.png", height: 75),
                 ),
                 Text(
                   "Sign Up",
@@ -33,17 +29,17 @@ class SignUpScreen extends StatelessWidget {
             SizedBox(height: 16),
             CustomTextFormField(title: "Email"),
             SizedBox(height: 8),
-            CustomTextFormField(title: "Password"),
+            CustomTextFormField(title: "Password", isPassword: true),
             SizedBox(height: 8),
-            CustomTextFormField(title: "Confirm Password"),
+            CustomTextFormField(title: "Confirm Password", isPassword: true),
             SizedBox(height: 8),
             Hero(
-                tag: 'signUp',child: CustomButton(title: "Sign Up",)),
-        
+              tag: 'signUp',
+              child: CustomButton(title: "Sign Up"),
+            ),
           ],
         ),
       ),
     );
   }
 }
-
