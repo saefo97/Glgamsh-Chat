@@ -17,9 +17,9 @@ class WelcomeScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Hero(
-              tag: 'logo',
-              child: Image.asset("assets/images/logo.png", height: 150),
-            ),
+                tag: 'logo',
+
+                child: Image.asset("assets/images/logo.png", height: 150)),
             Text(
               "Welcome to Our Chat App!",
               style: TextStyle(fontSize: 30, color: kMainColor),

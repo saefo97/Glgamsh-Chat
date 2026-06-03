@@ -26,9 +26,9 @@ bool isHidden = true;
             ? IconButton(
                 color: kDarkColor2,
                 onPressed: () {
-                  isHidden = !isHidden;
-                  setState(() {
 
+                  setState(() {
+                    isHidden = !isHidden;
                   });
                   print(isHidden);
                 },
