@@ -2,16 +2,50 @@ import 'package:chat_app/components/background_decoration.dart';
 import 'package:chat_app/screens/chat_screen.dart';
 import 'package:chat_app/screens/forget_password_screen.dart';
 import 'package:flutter/material.dart';
+import '../auth_services.dart';
 import '../constants.dart';
 import '../components/custom_button.dart';
 import '../components/custom_text_form_field.dart';
 
-class LogInScreen extends StatelessWidget {
-  const LogInScreen({super.key});
+class LogInScreen extends StatefulWidget {
+  LogInScreen({super.key});
+
+  @override
+  State<LogInScreen> createState() => _LogInScreenState();
+}
+
+class _LogInScreenState extends State<LogInScreen> {
+  AuthService _authService = AuthService();
+  GlobalKey<FormState> key = GlobalKey();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  bool isLoading = false;
+  signIn() async {
+    if(key.currentState!.validate()){
+      setState(() {
+        isLoading = true;
+      });
+      String? error = await _authService.signIn(
+        email.text.trim(),
+        password.text.trim(),
+      );
+      setState(() {
+        isLoading = false;
+      });
+      if (error == null) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => ChatScreen()),
+              (route) => false,
+        );
+      }
+    }
+
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return isLoading ? LogInScreen() : Scaffold(
       body: BackgroundDecoration(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -29,9 +63,14 @@ class LogInScreen extends StatelessWidget {
               ],
             ),
             SizedBox(height: 16),
-            CustomTextFormField(title: "Email"),
+            CustomTextFormField(title: "Email", controller: email),
             SizedBox(height: 8),
-            CustomTextFormField(title: "Password", isPassword: true),
+            CustomTextFormField(
+              title: "Password",
+              isPassword: true,
+              controller: password,
+            ),
+            SizedBox(height: 8),
             Align(
               alignment: Alignment.centerRight,
 
@@ -52,16 +91,11 @@ class LogInScreen extends StatelessWidget {
             ),
             Hero(
               tag: 'logIn',
-              child: CustomButton(title: "Log In",
-              onPressed: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ChatScreen(),
-                  ),
-                );
-              },
-
+              child: CustomButton(
+                title: "Log In",
+                onPressed: () {
+                 signIn();
+                },
               ),
             ),
           ],
