@@ -1,10 +1,23 @@
 import 'package:chat_app/constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
+
   ChatScreen({super.key});
+
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  TextEditingController message = TextEditingController();
+
   bool isMe = false;
+
   List<String> X = ["Hello", "Wenk" , "?"];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,6 +78,7 @@ class ChatScreen extends StatelessWidget {
           children: [
             Expanded(
               child: TextField(
+                controller: message,
                 minLines: 1,
                 maxLines: 5,
                 decoration: InputDecoration(
@@ -75,7 +89,14 @@ class ChatScreen extends StatelessWidget {
             ),
             IconButton(
               color: kDarkColor1,
-              onPressed: () {},
+              onPressed: () async {
+             await   FirebaseFirestore.instance.collection("messages").add({
+                  'message' : message.text,
+                  'time' : DateTime.now(),
+                  'sender' : FirebaseAuth.instance.currentUser!.email
+                });
+                message.clear();
+              },
               icon: Icon(Icons.send),
             ),
           ],
