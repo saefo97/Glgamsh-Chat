@@ -1,6 +1,8 @@
 import 'package:chat_app/constants.dart';
 import 'package:chat_app/components/custom_button.dart';
+import 'package:chat_app/screens/chat_screen.dart';
 import 'package:chat_app/screens/welcome_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -21,7 +23,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: WelcomeScreen());
+        home: StreamBuilder<User?>(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshots) {
+            if(snapshots.connectionState == ConnectionState.waiting){
+              return LoadingScreen();
+            }
+            if(snapshots.data == null){
+              return WelcomeScreen();
+            }else{
+              return ChatScreen();
+            }
+          }
+        ));
   }
 }
 
